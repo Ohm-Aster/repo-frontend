@@ -12,10 +12,10 @@ app.use(cors());
 app.use(express.json());
 
 const pool = new Pool({
-  user: "tu_usuario",
-  host: "localhost",
-  database: "tu_base_de_datos",
-  password: "tu_contraseña",
+  user: "postgres",
+  host: "postgres.railway.internal",
+  database: "railway",
+  password: "rayuQGxRlJaWXNmmxVDMIuOcQTTCaikR",
   port: 5432,
 });
 
@@ -29,6 +29,7 @@ app.get("/api/kpis", async (req, res) => {
     res.status(500).json({ error: "Error al obtener KPIs" });
   }
 });
+
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
