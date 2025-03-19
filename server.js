@@ -1,7 +1,11 @@
-require("dotenv").config();
-const express = require("express");
-const cors = require("cors");
-const { Pool } = require("pg");
+import dotenv from "dotenv";
+import express from "express";
+import cors from "cors";
+import pg from "pg";
+
+dotenv.config();
+
+const { Pool } = pg;
 
 const app = express();
 app.use(cors());
@@ -15,7 +19,7 @@ const pool = new Pool({
   port: 5432,
 });
 
-// Obtener todos los KPIs
+// Obtener KPIs
 app.get("/api/kpis", async (req, res) => {
   try {
     const result = await pool.query("SELECT * FROM kpis ORDER BY created_at DESC");
@@ -23,21 +27,6 @@ app.get("/api/kpis", async (req, res) => {
   } catch (err) {
     console.error(err);
     res.status(500).json({ error: "Error al obtener KPIs" });
-  }
-});
-
-// Agregar un nuevo KPI
-app.post("/api/kpis", async (req, res) => {
-  const { name, value } = req.body;
-  try {
-    const result = await pool.query(
-      "INSERT INTO kpis (name, value) VALUES ($1, $2) RETURNING *",
-      [name, value]
-    );
-    res.json(result.rows[0]);
-  } catch (err) {
-    console.error(err);
-    res.status(500).json({ error: "Error al agregar KPI" });
   }
 });
 
