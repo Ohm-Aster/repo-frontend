@@ -13,7 +13,7 @@ app.use(express.json());
 
 const pool = new Pool({
   user: "postgres",
-  host: "postgres.railway.internal",
+  host: "RAILWAY_PRIVATE_DOMAIN",
   database: "railway",
   password: "rayuQGxRlJaWXNmmxVDMIuOcQTTCaikR",
   port: 5432,
